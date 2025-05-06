@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rethink.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuezeri  <chuezeri@student.42.de>         +#+  +:+       +#+        */
+/*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:54:03 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/05/02 18:10:13 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:53:52 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	*open_files(int ac, char **argv)
 	return (fds);
 }
 
-void	pipex(t_list **list, t_store *store, t_args *args)
+int	pipex(t_list **list, t_store *store, const t_args *args)
 {
 	int			i;
 	int			pipe_fds[2];
@@ -51,7 +51,7 @@ void	pipex(t_list **list, t_store *store, t_args *args)
 		proc = fork_and_exec(store->prev_fd, pipe_fds[1], args->argv[i],
 				args->envp);
 		if (!proc)
-			handle_error(EXIT_FAILURE, "Fork failed", NULL);
+			return (EXIT_FAILURE);
 		ft_lstadd_back(list, ft_lstnew(proc));
 		close(pipe_fds[1]);
 		if (store->prev_fd != store->fds[0])
@@ -59,31 +59,38 @@ void	pipex(t_list **list, t_store *store, t_args *args)
 		store->prev_fd = pipe_fds[0];
 		i++;
 	}
+	return (EXIT_SUCCESS);
 }
 
 int	main(int ac, char **argv, char **envp)
 {
-	t_store		store;
-	t_list		*list;
-	t_args		args;
-	t_process	*last;
+	t_store			store;
+	t_list			*list;
+	const t_args	args = {argv, envp, ac - 2};
+	t_process		*last;
+	int				pipex_status;
 
 	if (ac < 5)
 		handle_error(EXIT_FAILURE, "Invalid number of arguments", NULL);
 	list = NULL;
-	args = {argv, envp, ac - 2};
 	store.fds = open_files(ac, argv);
 	store.prev_fd = store.fds[0];
-	pipex(&list, &store, &args);
+	pipex_status = pipex(&list, &store, &args);
+	if (pipex_status == EXIT_FAILURE)
+	{
+		free(store.fds);
+		return (EXIT_FAILURE);
+	}
 	last = fork_and_exec(store.prev_fd, store.fds[1], argv[ac - 2], envp);
 	if (!last)
-		handle_error(EXIT_FAILURE, "Fork failed for last command", NULL);
+		(free(store.fds), handle_error(EXIT_FAILURE,
+				"Fork failed for last command", NULL));
 	ft_lstadd_back(&list, ft_lstnew(last));
 	if (store.prev_fd != store.fds[0])
 		close(store.prev_fd);
+	wait_for_processes(&list);
 	close(store.fds[0]);
 	close(store.fds[1]);
 	free(store.fds);
-	wait_for_processes(&list);
 	return (0);
 }
