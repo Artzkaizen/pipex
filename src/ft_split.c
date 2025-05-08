@@ -6,7 +6,7 @@
 /*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 12:20:04 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/05/06 19:23:21 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:23:00 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*extract_word(char *str, char charset)
 	return (word);
 }
 
-static void	*ft_freeall(char **str, int i)
+void	*ft_freeall(char **str, int i)
 {
 	while (i >= 0)
 	{

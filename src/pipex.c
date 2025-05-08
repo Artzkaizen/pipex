@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuezeri <chuezeri@student.42.de>          +#+  +:+       +#+        */
+/*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:55:23 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/05/08 15:55:00 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:23:29 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void wait_for_processes(t_list **list)
+void	wait_for_processes(t_list **list)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = *list;
 	while (tmp)
@@ -24,25 +24,25 @@ void wait_for_processes(t_list **list)
 	}
 }
 
-void execute_command(char *cmd_str, char **envp)
+void	execute_command(char *cmd_str, char **envp)
 {
-	char **args;
-	char *path;
+	char	**args;
+	char	*path;
 
+	// int		status;
 	args = ft_split(cmd_str, ' ');
 	path = find_command_path(args[0], envp);
 	if (!path)
-		handle_error(EXIT_FAILURE, "Command not found", NULL);
+		handle_error(EXIT_FAILURE + 126, "Command not found", NULL);
 	execve(path, args, envp);
-	perror("execve failed");
-	exit(EXIT_FAILURE);
-	(void)cmd_str;
-	(void)envp;
+	perror("execve");
+	ft_freeall(args, 0);
+	exit(EXIT_FAILURE + 126);
 }
 
-t_process *fork_and_exec(int in_fd, int out_fd, char *cmd, char **envp)
+t_process	*fork_and_exec(int in_fd, int out_fd, char *cmd, char **envp)
 {
-	t_process *process;
+	t_process	*process;
 
 	process = malloc(sizeof(t_process));
 	if (!process)
@@ -63,7 +63,7 @@ t_process *fork_and_exec(int in_fd, int out_fd, char *cmd, char **envp)
 			close(out_fd);
 		}
 		execute_command(cmd, envp);
-		exit(EXIT_FAILURE);
+		exit(126 + EXIT_FAILURE);
 	}
 	return (process);
 }

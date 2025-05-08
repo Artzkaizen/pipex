@@ -6,7 +6,7 @@
 /*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 11:57:14 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/05/06 19:31:57 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:23:11 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_args
 
 void				ft_lstclear(t_list **lst);
 t_list				*ft_lstnew(void *content);
+void				*ft_freeall(char **str, int i);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 
 void				wait_for_processes(t_list **list);
