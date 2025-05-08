@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: chuezeri <chuezeri@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 10:35:25 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/05/06 19:48:54 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:54:29 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-t_list	*ft_lstnew(void *content)
+t_list *ft_lstnew(void *content)
 {
-	t_list	*new;
+	t_list *new;
 
 	new = (t_list *)malloc(sizeof(t_list));
 	if (!new)
@@ -24,16 +24,16 @@ t_list	*ft_lstnew(void *content)
 	return (new);
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*temp;
+	t_list *temp;
 
 	if (!lst || !new)
-		return ;
+		return;
 	if (!*lst)
 	{
 		*lst = new;
-		return ;
+		return;
 	}
 	temp = *lst;
 	while (temp->next)
@@ -41,15 +41,19 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	temp->next = new;
 }
 
-void	ft_lstclear(t_list **lst)
+void ft_lstclear(t_list **lst)
 {
-	t_list	*temp;
+	t_list *temp;
 
 	if (!lst)
-		return ;
+		return;
 	while (*lst)
 	{
 		temp = (*lst)->next;
+		if ((*lst)->content)
+			free((*lst)->content);
+		(*lst)->content = NULL;
+		(*lst)->next = NULL;
 		free(*lst);
 		*lst = temp;
 	}
