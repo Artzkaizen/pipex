@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuezeri  <chuezeri@student.42.de>         +#+  +:+       +#+        */
+/*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 11:44:50 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/06/01 12:43:28 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:40:42 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ char	***parse_args(size_t size, char *argv[])
 
 int	main(int argc, char *argv[], char **env)
 {
-	t_pipex		info;
-	int			num_cmds;
-	int			stat_loc;
-	pid_t		pid;
+	t_pipex	info;
+	int		num_cmds;
+	int		stat_loc;
+	pid_t	pid;
 
 	num_cmds = argc - 3;
 	info.here_doc = (argc > 1 && ft_strncmp(argv[1], "here_doc", 9) == 0);

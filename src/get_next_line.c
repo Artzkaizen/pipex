@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuezeri  <chuezeri@student.42.de>         +#+  +:+       +#+        */
+/*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 18:12:50 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/06/01 12:39:23 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:40:39 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*ft_realloc(char *ptr, size_t new_size)
 
 static char	*parse_line(char *s, t_file *file, int realloc, int buff_size)
 {
-	int		len;
+	int	len;
 
 	len = 0;
 	if (!file->bytes_read || !*s)

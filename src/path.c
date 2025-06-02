@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuezeri  <chuezeri@student.42.de>         +#+  +:+       +#+        */
+/*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 11:58:51 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/06/01 12:42:31 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:40:43 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	**get_bin_paths(char **env)
 		temp = ft_strjoin(bin_paths[i], "/");
 		if (!temp)
 		{
-			free_paths((void **) bin_paths);
+			free_paths((void **)bin_paths);
 			return (NULL);
 		}
 		free(bin_paths[i]);
@@ -109,7 +109,7 @@ void	set_cmd_path(char ***cmds, char **env)
 	bin_paths = get_bin_paths(env);
 	if (!bin_paths)
 	{
-		free_args((void ***) cmds);
+		free_args((void ***)cmds);
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
@@ -119,12 +119,12 @@ void	set_cmd_path(char ***cmds, char **env)
 		{
 			if (join_path_and_command(cmds[i], bin_paths) == PIPEX_ERROR)
 			{
-				free_args((void ***) cmds);
-				free_paths((void **) bin_paths);
-				exit (EXIT_FAILURE);
+				free_args((void ***)cmds);
+				free_paths((void **)bin_paths);
+				exit(EXIT_FAILURE);
 			}
 		}
 		i++;
 	}
-	free_paths((void **) bin_paths);
+	free_paths((void **)bin_paths);
 }

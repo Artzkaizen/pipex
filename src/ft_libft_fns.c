@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_libft_fns.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuezeri  <chuezeri@student.42.de>         +#+  +:+       +#+        */
+/*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 12:34:39 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/06/01 12:39:42 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:41:27 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,23 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (dest);
 }
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t n)
+char	*ft_strnstr(const char *str, const char *sub, size_t n)
 {
-	size_t		i;
-	size_t		j;
-	size_t		len;
+	size_t	i;
+	size_t	j;
+	size_t	len;
 
 	i = 0;
-	len = ft_strlen((char *)needle);
-	if (haystack == needle || !len)
-		return ((char *)haystack);
-	while (haystack[i] && i < n)
+	len = ft_strlen((char *)sub);
+	if (str == sub || !len)
+		return ((char *)str);
+	while (str[i] && i < n)
 	{
 		j = 0;
-		while ((n - i >= len) && haystack[j + i] && needle[j] && haystack[i
-				+ j] == needle[j])
+		while ((n - i >= len) && str[j + i] && sub[j] && str[i + j] == sub[j])
 			j++;
-		if (needle[j] == '\0')
-			return ((char *)&haystack[i]);
+		if (sub[j] == '\0')
+			return ((char *)&str[i]);
 		i++;
 	}
 	return (0);
@@ -71,14 +70,14 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (*s1 && *s2 && n > 0)
 	{
 		if (*s1 != *s2)
-			return ((unsigned char) *s1 - (unsigned char) *s2);
+			return ((unsigned char)*s1 - (unsigned char)*s2);
 		s1++;
 		s2++;
 		n--;
 	}
 	if (n == 0)
 		return (0);
-	return ((unsigned char) *s1 - (unsigned char) *s2);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
 size_t	ft_strlcat(char *dest, char *src, size_t size)

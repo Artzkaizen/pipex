@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chuezeri  <chuezeri@student.42.de>         +#+  +:+       +#+        */
+/*   By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 12:05:27 by chuezeri          #+#    #+#             */
-/*   Updated: 2025/06/01 12:43:27 by chuezeri         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:34:53 by chuezeri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	set_in_out(size_t idx, size_t num_childs, t_pipex *info, int last_read_end)
+static void	set_in_out(size_t idx, size_t num_childs, t_pipex *info,
+		int last_read_end)
 {
 	int	fds[2];
 
@@ -70,7 +71,8 @@ static void	exec_cmd(int child_i, t_pipex *info, char **env)
 	wait_free_exit(info->cmds, 127);
 }
 
-static void	close_unused_ends(int child_i, int num_childs, t_pipex *info, int read_end)
+static void	close_unused_ends(int child_i, int num_childs, t_pipex *info,
+		int read_end)
 {
 	if (child_i != num_childs - 1)
 	{

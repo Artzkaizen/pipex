@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chuezeri  <chuezeri@student.42.de>         +#+  +:+       +#+         #
+#    By: chuezeri <chuezeri@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/01 12:13:36 by chuezeri          #+#    #+#              #
-#    Updated: 2025/06/01 12:39:56 by chuezeri         ###   ########.fr        #
+#    Updated: 2025/06/02 16:39:29 by chuezeri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,13 @@ $(NAME): $(OBJS)
 
 clean:
 	$(RM) $(OBJS)
-	@rmdir $(OBJ_DIR) 2>/dev/null || true
 
+# Full clean (remove object files and static library)
 fclean: clean
 	$(RM) $(NAME)
 
+# Rebuild the project
 re: fclean all
+
 
 .PHONY: all clean fclean re
